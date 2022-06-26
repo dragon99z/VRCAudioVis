@@ -11,8 +11,10 @@ The general visualizer settings where you add the objects you want to visualize,
 the number of samples and visualizer the algorithm 
 
 ---Light Visualizer---
+
 --Light Intensity--
 The light intensity changes to the music
+
 --Light Hue--
 The light color changes to the music
 you can use the lerp color to switch between the main color and the lerp color
