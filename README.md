@@ -42,7 +42,7 @@ Let a particle system burst particle to the music
 
 Changes the transformation of the objects to the music like position, rotation, scale
 
-## Orbit Settings---
+## Orbit Settings
 
 Let the onjects orbit around an center object
 
