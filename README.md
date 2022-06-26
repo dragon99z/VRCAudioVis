@@ -7,10 +7,12 @@ i've made a little audio visualizer for lights, particle systems and generel obj
 You can link your AudioLink to the AudioVis but it will only use the audio source
 and if you want the audiolink colortheme for the light visualizer
 
+
 ---Visualizer Settings---
 
 The general visualizer settings where you add the objects you want to visualize, the height multiplier,
 the number of samples and visualizer the algorithm 
+
 
 ---Light Visualizer---
 
@@ -24,10 +26,12 @@ The light color changes to the music
 you can use the lerp color to switch between the main color and the lerp color
 or the shift to let the light cycle thru the colors
 
+
 ---Particle Visualizer---
 
 Let a particle system burst particle to the music
 (you need to add one burst in the emission of the particle system)
+
 
 ---Transform Visualizer---
 
