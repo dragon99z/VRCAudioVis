@@ -6,7 +6,8 @@
 
 i've made a little audio visualizer for lights, particle systems and generel objects. Its main use is in vrc worlds but you can also use it on vrc avatars with the record function
 
-https://www.youtube.com/watch?v=BM60__ZZemk
+[![VRCAudioVis showcase](https://i.ytimg.com/vi/BM60__ZZemk/maxresdefault.jpg)](https://www.youtube.com/watch?v=BM60__ZZemk)
+
 
 ## AudioLink Settings
 (only visible when AudioLink is available)
