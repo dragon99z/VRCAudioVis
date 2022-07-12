@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 #if VRC_SDK_VRCSDK2 || VRC_SDK_VRCSDK3
 using VRC.SDKBase;
 #endif
@@ -411,9 +411,9 @@ namespace AudioVisualizer
 
         }
     }
-#else
-    using UnityEditor.Animations;
+#elif UNITY_EDITOR
     using UnityEditor;
+    using UnityEditor.Animations;
     public class AudioVis : MonoBehaviour
         {
         [Header("Visualizer Settings")]
@@ -478,7 +478,8 @@ namespace AudioVisualizer
         public float orbitZ;
 
         [Header("Recorder Settings")]
-        public recorder recorde;
+        public bool record;
+        public AnimationClip clip;
         private GameObjectRecorder m_Recorder;
         public bool recordOnlyWhilePlayMusic;
 
@@ -505,7 +506,7 @@ namespace AudioVisualizer
                     startColor[i] = SpectrumLight.color;
             }
 
-            if (recorde.record)
+            if (record)
             {
                 // Create recorder and record the script GameObject.
                 m_Recorder = new GameObjectRecorder(gameObject);
@@ -521,9 +522,9 @@ namespace AudioVisualizer
 
         void LateUpdate()
         {
-            if (recorde.record)
+            if (record)
             {
-                if (recorde.clip == null)
+                if (clip == null)
                     return;
 
                 // Take a snapshot and record all the bindings values for this frame.
@@ -543,15 +544,15 @@ namespace AudioVisualizer
 
         void OnDisable()
         {
-            if (recorde.record)
+            if (record)
             {
-                if (recorde.clip == null)
+                if (clip == null)
                     return;
 
                 if (m_Recorder.isRecording)
                 {
                     // Save the recorded session to the clip.
-                    m_Recorder.SaveToClip(recorde.clip);
+                    m_Recorder.SaveToClip(clip);
                 }
             }
 
