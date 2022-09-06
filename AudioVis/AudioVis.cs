@@ -29,7 +29,7 @@ namespace AudioVisualizer
         [Header("Light Intensity")]
         public bool intensityToggle;
         public int lightIntensity;
-        [Header("Light Hue")]
+        [Header("Light Hue")]//HOE
         public bool HueToggle;
         [SerializeField] [Range(0f, 1f)] public float colorLerpTime = 0;
         private Color[] startColor;
@@ -44,7 +44,6 @@ namespace AudioVisualizer
         [Range(0, 10)] public float burstTime = 0f;
         [Min(0)]public int minBurst = 0;
         [Min(1)]public int maxBurst = 5;
-
         [Header("Transform Visualizer")]
         public bool transformToggle;
 
@@ -66,6 +65,9 @@ namespace AudioVisualizer
         public bool scaleX;
         public bool scaleY;
         public bool scaleZ;
+        public int scaleAddX = 0;
+        public int scaleAddY = 0;
+        public int scaleAddZ = 0;
 
         [Header("Orbit Settings")]
         public bool orbitToggle;
@@ -92,6 +94,7 @@ namespace AudioVisualizer
 
         void Start()
         {
+#if AUDIOLINK
             if(audioLinkInstance != null)
             {
 
@@ -137,6 +140,7 @@ namespace AudioVisualizer
                     }
                 }
             }
+#endif
             startColor = new Color[audioSpectrumObjects.Length];
             for (int i = 0; i < audioSpectrumObjects.Length; i++)
             {
@@ -152,6 +156,7 @@ namespace AudioVisualizer
 
         void Update()
         {
+#if AUDIOLINK
             if (audioLinkInstance != null)
             {
                 if (audioLinkInstance.audioSource != null)
@@ -159,17 +164,18 @@ namespace AudioVisualizer
                     audioSource = audioLinkInstance.audioSource;
                 }
             }
+#endif
 
-            if(audioSource != null)
+            if (audioSource != null)
             {
-    #region audioVis
+            #region audioVis
                 float[] spectrum = new float[numberOfSamples];
 
                 audioSource.GetSpectrumData(spectrum, 0, fftWindow);
 
                 for (int i = 0; i < audioSpectrumObjects.Length; i++)
                 {
-    #region LightVis
+            #region LightVis
                     Light SpectrumLight = audioSpectrumObjects[i].GetComponent<Light>();
                     if (SpectrumLight != null)
                     {
@@ -224,9 +230,9 @@ namespace AudioVisualizer
 
                         }
                     }
-    #endregion
+            #endregion
 
-    #region ParticleVis
+            #region ParticleVis
                     ParticleSystem SpectrumParticle = audioSpectrumObjects[i].GetComponent<ParticleSystem>();
                     if (SpectrumParticle != null)
                     {
@@ -257,9 +263,9 @@ namespace AudioVisualizer
                             emission.SetBurst(0, burst);
                         }
                     }
-    #endregion
+            #endregion
 
-    #region TransformVis
+            #region TransformVis
                     Transform SpectrumTransform = audioSpectrumObjects[i].GetComponent<Transform>();
                     if(SpectrumTransform != null)
                     {
@@ -370,16 +376,16 @@ namespace AudioVisualizer
                                 {
                                     lerpZ_scale = SpectrumTransform.localScale.z;
                                 }
-                                Vector3 newScale = new Vector3(lerpZ_scale, lerpY_scale, lerpZ_scale);
+                                Vector3 newScale = new Vector3(lerpZ_scale + scaleAddX, lerpY_scale + scaleAddY, lerpZ_scale + scaleAddZ);
 
                                 SpectrumTransform.localScale = newScale;
                             }
                         }
                     }
 
-    #endregion
+            #endregion
 
-    #region OrbitVis
+            #region OrbitVis
                     Transform SpectrumOrbit = audioSpectrumObjects[i].GetComponent<Transform>();
                     if (SpectrumTransform != null)
                     {
@@ -402,17 +408,17 @@ namespace AudioVisualizer
                     }
                     
 
-    #endregion
+            #endregion
                 }
 
-    #endregion
+            #endregion
             }
 
 
         }
     }
 #elif UNITY_EDITOR
-    using UnityEditor;
+            using UnityEditor;
     using UnityEditor.Animations;
     public class AudioVis : MonoBehaviour
         {
